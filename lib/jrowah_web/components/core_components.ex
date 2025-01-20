@@ -459,9 +459,9 @@ defmodule JrowahWeb.CoreComponents do
           <span class="ml-2 text-blue-600 text-lg">Experience:</span>
         </div>
         <p class="ml-8 font-bold">
-          <%= if @years > 1, do: "#{@years} Years", else: "#{@years} Year" %> and <%= if @months > 1,
-            do: "#{@months} Months",
-            else: "#{@months} Month" %>.
+          <%= if @years > 1, do: "#{@years} Years", else: "#{@years} Year" %> and <%= if @months == 1,
+            do: "#{@months} Month",
+            else: "#{@months} Months" %>.
           Worked at OptimumBA, and now Freelancing and Open Source.
         </p>
       </li>
