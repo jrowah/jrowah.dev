@@ -361,7 +361,7 @@ defmodule JrowahWeb.CoreComponents do
       <hr />
       <div class="flex justify-between px-10 py-5 bg-base-200 text-base-content text-blue-600 dark:text-blue-400">
         <div class="flex flex-col">
-          <span>Copyright © Jrowah 2024</span>
+          <span>Copyright © Jrowah <%= DateTime.utc_now().year %></span>
           <.link navigate={~p"/privacy-policy"} target="_blank">
             Privacy Policy
           </.link>
@@ -459,11 +459,11 @@ defmodule JrowahWeb.CoreComponents do
           <span class="ml-2 text-blue-600 text-lg">Experience:</span>
         </div>
         <p class="ml-8 font-bold">
-          <%= gettext("%{years} Years", years: @years) %> and <%= ngettext(
+          <%= gettext("%{years} Years and ", years: @years) %><%= ngettext(
             "1 Month",
             "%{count} Months",
             @months
-          ) %> Worked at OptimumBA, and now Freelancing and Open Source.
+          ) %><%= gettext(": Worked at OptimumBA, and now Freelancing and Open Source.") %>
         </p>
       </li>
       <li>
