@@ -463,7 +463,7 @@ defmodule JrowahWeb.CoreComponents do
             "1 Month",
             "%{count} Months",
             @months
-          ) %><%= gettext(": Worked at OptimumBA, and now Freelancing and Open Source.") %>
+          ) %><%= gettext(": Worked at OptimumBA, and now at Expivot Labs and Open Source.") %>
         </p>
       </li>
       <li>
