@@ -6,6 +6,10 @@ import Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
+
+# Override site URL for development
+config :jrowah, site_url: "http://localhost:4000"
+
 config :jrowah, JrowahWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.

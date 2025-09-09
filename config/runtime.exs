@@ -40,6 +40,7 @@ if config_env() == :prod do
 
   config :jrowah, JrowahWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
+    # add domain
     check_origin: [
       "https://jrowah.dev",
       "https://www.jrowah.dev",

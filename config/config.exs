@@ -8,7 +8,8 @@
 import Config
 
 config :jrowah,
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime],
+  site_url: "https://jrowah.dev"
 
 # Configures the endpoint
 config :jrowah, JrowahWeb.Endpoint,
