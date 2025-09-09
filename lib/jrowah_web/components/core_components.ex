@@ -1222,7 +1222,7 @@ defmodule JrowahWeb.CoreComponents do
   attr :name, :string, required: true
   attr :class, :string, default: nil
 
-  def icon(%{name: "hero-" <> _} = assigns) do
+  def icon(%{name: "hero-" <> _icon} = assigns) do
     ~H"""
     <span class={[@name, @class]} />
     """
@@ -1309,11 +1309,6 @@ defmodule JrowahWeb.CoreComponents do
     [
       %{label: "Home", unique_class: "desktop-home-link", route: ~p"/"},
       %{
-        label: "Blog",
-        unique_class: "desktop-blog-link",
-        route: ~p"/blog"
-      },
-      %{
         label: "Projects",
         unique_class: "desktop-projects-link",
         route: ~p"/projects"
@@ -1322,6 +1317,11 @@ defmodule JrowahWeb.CoreComponents do
         label: "Journey",
         unique_class: "desktop-journey-link",
         route: ~p"/journey"
+      },
+      %{
+        label: "Blog",
+        unique_class: "desktop-blog-link",
+        route: ~p"/blog"
       }
     ]
   end
