@@ -3,6 +3,8 @@ defmodule JrowahWeb.BlogLiveTest do
 
   import Phoenix.LiveViewTest
 
+  alias Jrowah.Blog
+
   describe "/blog" do
     test "renders blog page", %{conn: conn} do
       {:ok, _blog_live, html} = live(conn, "/blog")
@@ -73,6 +75,98 @@ defmodule JrowahWeb.BlogLiveTest do
       {:ok, page_live, disconnected_html} = live(conn, "/blog")
       assert disconnected_html =~ "Blog"
       assert render(page_live) =~ "Blog"
+    end
+  end
+
+  describe "/blog/:slug" do
+    test "renders individual blog article", %{conn: conn} do
+      articles = Blog.all_articles()
+
+      if length(articles) > 0 do
+        article = hd(articles)
+        {:ok, _show_live, html} = live(conn, "/blog/#{article.slug}")
+
+        assert html =~ article.title
+        assert html =~ article.description
+        assert html =~ "Back to all articles"
+      end
+    end
+
+    test "includes proper meta tags for SEO", %{conn: conn} do
+      articles = Blog.all_articles()
+
+      if length(articles) > 0 do
+        article = hd(articles)
+        conn = get(conn, "/blog/#{article.slug}")
+        html = html_response(conn, 200)
+
+        # Check for basic meta tags
+        assert html =~
+                 ~s(name="title" content="Beyond Syntax: A Self-Taught Developer&#39;s Journey into System Design")
+
+        assert html =~ ~s(name="description" content="#{article.description}")
+        assert html =~ ~s(name="author" content="#{article.author}")
+
+        # Check for Open Graph tags
+        assert html =~ ~s(property="og:type" content="article")
+
+        assert html =~
+                 ~s(property="og:title" content="Beyond Syntax: A Self-Taught Developer&#39;s Journey into System Design")
+
+        assert html =~ ~s(property="og:description" content="#{article.description}")
+
+        # Check for Twitter tags
+        assert html =~ ~s(property="twitter:card" content="summary_large_image")
+
+        assert html =~
+                 ~s(property="twitter:title" content="Beyond Syntax: A Self-Taught Developer&#39;s Journey into System Design")
+
+        # Check for structured data
+        assert html =~ ~s(type="application/ld+json")
+        assert html =~ ~s(\"@type\":\"BlogPosting\")
+
+        assert html =~
+                 ~s(\"headline\":\"Beyond Syntax: A Self-Taught Developer's Journey into System Design\")
+      end
+    end
+
+    test "handles non-existent article slugs", %{conn: conn} do
+      {:error, {:live_redirect, %{to: "/blog", flash: %{"error" => "Article not found"}}}} =
+        live(conn, "/blog/non-existent-slug-12345")
+    end
+
+    test "displays article metadata correctly", %{conn: conn} do
+      articles = Blog.all_articles()
+
+      if length(articles) > 0 do
+        article = hd(articles)
+        {:ok, _show_live, html} = live(conn, "/blog/#{article.slug}")
+
+        # Check for publication date
+        formatted_date = Calendar.strftime(article.date, "%d %B %Y")
+        assert html =~ formatted_date
+
+        # Check for reading time
+        assert html =~ "#{article.reading_time} min read"
+
+        # Check for hero image if present
+        if article.hero_image do
+          assert html =~ ~s(src="#{article.hero_image}")
+        end
+      end
+    end
+
+    test "includes share functionality", %{conn: conn} do
+      articles = Blog.all_articles()
+
+      if length(articles) > 0 do
+        article = hd(articles)
+        {:ok, _show_live, html} = live(conn, "/blog/#{article.slug}")
+
+        # Check for share button
+        assert html =~ "hero-share"
+        assert html =~ "Copy link"
+      end
     end
   end
 end

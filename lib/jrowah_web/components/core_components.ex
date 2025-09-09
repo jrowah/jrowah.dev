@@ -286,7 +286,7 @@ defmodule JrowahWeb.CoreComponents do
   @spec navbar(map()) :: Phoenix.LiveView.Rendered.t()
   def navbar(assigns) do
     ~H"""
-    <nav class="flex h-[80px] bg-white dark:bg-gray-800 w-full font-bold text-sm md:text-base lg:text-lg text-blue-600 dark:text-blue-400">
+    <nav class="flex h-[80px] bg-white dark:bg-gray-800 w-full font-bold text-sm md:text-base lg:text-lg text-blue-600 dark:text-white">
       <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4">
         <.avatar />
 
@@ -303,7 +303,7 @@ defmodule JrowahWeb.CoreComponents do
                 active?(@current_url, route) && "border-b-2 border-current pb-2"
               ]}
             >
-              <span class="inline-flex items-center justify-center text-center bg-blue-500 h-6 w-6 rounded-full text-white">
+              <span class="inline-flex items-center justify-center text-center bg-blue-500 h-6 w-6 rounded-full text-white dark:bg-blue-600">
                 <.icon name={nav_icon_names(label)} class="w-4 h-4" />
               </span>
               <%= label %>
@@ -359,7 +359,7 @@ defmodule JrowahWeb.CoreComponents do
         "hidden"
     ]}>
       <hr />
-      <div class="flex justify-between px-10 py-5 bg-base-200 text-base-content text-blue-600 dark:text-blue-400">
+      <div class="flex justify-between px-10 py-5 bg-base-200 text-base-content text-blue-600 dark:text-white">
         <div class="flex flex-col">
           <span>Copyright © Jrowah <%= DateTime.utc_now().year %></span>
           <.link navigate={~p"/privacy-policy"} target="_blank">
@@ -429,7 +429,7 @@ defmodule JrowahWeb.CoreComponents do
               </g>
             </svg>
           </span>
-          <span class="ml-2 text-blue-600 text-lg">Skillset:</span>
+          <span class="ml-2 text-blue-600 dark:text-white text-lg">Skillset:</span>
         </div>
         <p class="ml-8 font-bold">
           Elixir, Phoenix, LiveView, Nodejs, ReactJS, GraphQL, SQL
@@ -456,7 +456,7 @@ defmodule JrowahWeb.CoreComponents do
               />
             </svg>
           </span>
-          <span class="ml-2 text-blue-600 text-lg">Experience:</span>
+          <span class="ml-2 text-blue-600 dark:text-white text-lg">Experience:</span>
         </div>
         <p class="ml-8 font-bold">
           <%= gettext("%{years} Years and ", years: @years) %><%= ngettext(
@@ -492,7 +492,7 @@ defmodule JrowahWeb.CoreComponents do
               </g>
             </svg>
           </span>
-          <span class="ml-2 text-blue-600 text-lg">Learning:</span>
+          <span class="ml-2 text-blue-600 dark:text-white text-lg">Learning:</span>
         </div>
         <p class="ml-8 font-bold">Currently Learning Python and React Native</p>
       </li>
@@ -516,7 +516,7 @@ defmodule JrowahWeb.CoreComponents do
               </g>
             </svg>
           </span>
-          <span class="ml-2 text-blue-600 text-lg">Funtime:</span>
+          <span class="ml-2 text-blue-600 dark:text-white text-lg">Funtime:</span>
         </div>
         <p class="ml-8 font-bold">
           I enjoy morning runs, cycling, swimming, cooking, aprendiendo español, and spending quality time with my daughter as I wait for her to become of age and teach me new stuff 😎.

@@ -11,7 +11,7 @@ hero_image: "/images/2024/elixir_phoenix.avif"
 
 ## Introduction
 
-Hello world. So I got hooked into Elixir, Phoenix and LiveView and finally got convinced I needed to rebuild my website with these tools. In this blog post, I write about why and how I migrated my personal website from using GatsbyJS, [here](https://github.com/jrowah/jrowah.me/tree/website_2.0) is a Git branch with the old one, to using Elixir and Phoenix. If you are wondering whether using Elixir and Phoenix for a simple site is an overkill, I do not think so, but trust me it's worth it. This tech stack is awesome from pretty much anything, from a simple site such as this one to very huge apps like like Spotify, Pinterest, Discord, and Whatsapp, some of which are powered by Erlang, a language on top of which Elixir is built. 
+Hello world. So I got hooked into Elixir, Phoenix and LiveView and finally got convinced I needed to rebuild my website with these tools. In this blog post, I write about why and how I migrated my personal website from using GatsbyJS, [here](https://github.com/jrowah/jrowah.dev/tree/website_2.0) is a Git branch with the old one, to using Elixir and Phoenix. If you are wondering whether using Elixir and Phoenix for a simple site is an overkill, I do not think so, but trust me it's worth it. This tech stack is awesome from pretty much anything, from a simple site such as this one to very huge apps like like Spotify, Pinterest, Discord, and Whatsapp, some of which are powered by Erlang, a language on top of which Elixir is built. 
 
 Let's get started.
 
@@ -78,7 +78,7 @@ And finally, may be in a different blog post that will talk about more back-end 
 In this blog post I wrote about why I switched to coding my website in Phoenix and LiveView, and linked some resources to help you get started with the PETL stack if you are interested. I also highlighted some of the benefits of using Elixir, Phoenix and LiveView in software development. If you found this article interesting, please share it. If you are interested in learning Elixir and Phoenix and need a one on one guidance, reach out so we can have fun together. Cheers!
 
 ## Sources
-1. [Repository fo this Website](https://github.com/jrowah/jrowah.me)
+1. [Repository fo this Website](https://github.com/jrowah/jrowah.dev)
 2. [Phoenix Documentation](https://www.phoenixframework.org/)
 3. [Elixir and OTP](https://elixir-lang.org/docs.html)
 4. [Deploying a Phoenix App to Fly.io](https://fly.io/docs/elixir/getting-started/)
