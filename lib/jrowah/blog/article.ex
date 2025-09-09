@@ -25,7 +25,11 @@ defmodule Jrowah.Blog.Article do
             date: nil,
             heading_links: [],
             hero_image: "",
-            published: false
+            published: false,
+            author: "",
+            keywords: [],
+            canonical_url: nil,
+            og_image: nil
 
   @type t :: %__MODULE__{}
 
@@ -46,12 +50,14 @@ defmodule Jrowah.Blog.Article do
     struct!(
       __MODULE__,
       [
+        author: "James Rowa",
         id: id,
         date: date,
         body: body,
         reading_time: reading_time,
         heading_links: heading_links,
-        hero_image: attrs["hero_image"]
+        hero_image: attrs["hero_image"],
+        description: attrs["description"]
       ] ++
         Map.to_list(attrs)
     )

@@ -7,6 +7,39 @@
     <.live_title prefix="JRowah ">
       <%= assigns[:page_title] || "Software Developer" %>
     </.live_title>
+    <!-- Default Meta Tags -->
+    <%= if assigns[:meta_assigns] do %>
+      <JrowahWeb.MetaTags.page_meta {assigns[:meta_assigns]} />
+    <% else %>
+      <!-- Default meta tags for non-article pages -->
+      <meta
+        name="description"
+        content="James Rowa - Software Developer specializing in Elixir, Phoenix, and modern web development. Explore my blog, projects, and technical insights."
+      />
+      <meta
+        name="keywords"
+        content="James Rowa, Software Developer, Elixir, Phoenix, LiveView, Web Development, Programming, Tech Blog"
+      />
+      <meta name="author" content="James Rowa" />
+
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://jrowah.dev" />
+      <meta property="og:title" content="JRowah - Software Developer" />
+      <meta
+        property="og:description"
+        content="James Rowa - Software Developer specializing in Elixir, Phoenix, and modern web development."
+      />
+      <meta property="og:image" content="https://jrowah.dev/images/default-og.png" />
+      <meta property="og:site_name" content="JRowah - Software Developer" />
+
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content="@jrowah" />
+    <% end %>
+    <!-- Structured Data -->
+    <%= if assigns[:json_ld] do %>
+      <JrowahWeb.MetaTags.structured_data json_ld={assigns[:json_ld]} />
+    <% end %>
+
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script>
       if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
