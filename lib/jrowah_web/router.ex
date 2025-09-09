@@ -51,4 +51,9 @@ defmodule JrowahWeb.Router do
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
+
+  scope "/*rest", JrowahWeb do
+    pipe_through :browser
+    match(:*, "/", PageController, :not_found)
+  end
 end
