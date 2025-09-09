@@ -1,6 +1,6 @@
-const markdownCopyHooks = {}
+const CopyHooks = {}
 
-markdownCopyHooks.Markdown = {
+CopyHooks.Markdown = {
   mounted() {
     const codeBlocks = document.querySelectorAll('.autumn-hl')
     const copyIcon = `
@@ -42,4 +42,26 @@ markdownCopyHooks.Markdown = {
   },
 }
 
-export default markdownCopyHooks
+CopyHooks.CopyLink = {
+  mounted() {
+    const button = this.el
+    const copyButton = button.querySelector('#copy-link')
+    const linkCopied = button.querySelector('#link-copied')
+
+    copyButton.addEventListener('click', async () => {
+      const url = window.location.href
+      await navigator.clipboard.writeText(url)
+
+      // Visual feedback
+      copyButton.classList.add('hidden')
+      linkCopied.classList.remove('hidden')
+
+      setTimeout(() => {
+        copyButton.classList.remove('hidden')
+        linkCopied.classList.add('hidden')
+      }, 1000)
+    })
+  },
+}
+
+export default CopyHooks

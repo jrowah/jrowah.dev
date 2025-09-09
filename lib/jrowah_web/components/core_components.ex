@@ -548,6 +548,7 @@ defmodule JrowahWeb.CoreComponents do
   attr :header, :string, default: nil
   attr :show, :boolean, default: false
   attr :on_cancel, JS, default: %JS{}
+  attr :phx_hook, :string, default: nil
   slot :inner_block, required: true
 
   def share_blog_modal(assigns) do
@@ -558,6 +559,7 @@ defmodule JrowahWeb.CoreComponents do
       phx-remove={hide_modal(@id)}
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
       class="relative z-50 hidden"
+      phx-hook="CopyLink"
     >
       <div
         class="absolute bottom-0 right-0 w-[15rem]"
