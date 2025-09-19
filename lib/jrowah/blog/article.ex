@@ -45,7 +45,12 @@ defmodule Jrowah.Blog.Article do
     date = Date.from_iso8601!("#{year}-#{month}-#{day}")
 
     reading_time = calculate_reading_time(body)
-    heading_links = parse_headings(body)
+
+    heading_links =
+      body
+      |> parse_headings()
+      |> Enum.map(fn h2 -> %{h2 | children: Enum.reverse(h2.children)} end)
+      |> Enum.reverse()
 
     struct!(
       __MODULE__,
@@ -77,44 +82,41 @@ defmodule Jrowah.Blog.Article do
     end
   end
 
-  defp parse_headings(body) do
-    body
+  defp parse_headings(content) do
+    content
     |> Floki.parse_fragment!()
-    |> reducer()
-    |> Enum.reverse()
-    |> Enum.map(fn %{children: children} = h2 -> %{h2 | children: Enum.reverse(children)} end)
-  end
-
-  defp reducer(html) do
-    Enum.reduce(html, [], fn
+    |> Enum.reduce([], fn
       {"h2", _class, child} = el, acc ->
-        [%{label: Floki.text(el), href: get_heading_link(child), children: []} | acc]
+        [%{label: Floki.text(el), href: get_href(child), children: []} | acc]
 
-      {"h3", _class, child} = el, [%{children: subs} = h2 | rest] ->
-        [
-          %{
-            h2
-            | children: [
-                %{label: Floki.text(el), href: get_heading_link(child), children: []} | subs
-              ]
-          }
-          | rest
-        ]
+      {"h3", _class, child} = el, acc ->
+        case acc do
+          [%{children: subs} = h2 | rest] ->
+            updated_h2 = %{
+              h2
+              | children: [%{label: Floki.text(el), href: get_href(child), children: []} | subs]
+            }
+
+            [updated_h2 | rest]
+
+          [] ->
+            acc
+        end
 
       _other, acc ->
         acc
     end)
   end
 
-  defp get_heading_link(heading) do
+  defp get_href(heading_element) do
     attr =
-      heading
+      heading_element
       |> Floki.find("a")
       |> Floki.attribute("href")
 
     case attr do
       [] -> nil
-      [link] -> link
+      [href | _] -> href
     end
   end
 end

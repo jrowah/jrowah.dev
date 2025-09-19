@@ -85,6 +85,7 @@ defmodule JrowahWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import JrowahWeb.CoreComponents
+      import JrowahWeb.TableOfContents
       import JrowahWeb.Gettext
 
       # Shortcut for generating JS commands
