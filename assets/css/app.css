@@ -136,7 +136,7 @@ html {
 
 /* Offset for fixed header if you have one */
 [id] {
-  scroll-margin-top: calc(var(--header-height) + 2rem);
+  scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
 nav {
