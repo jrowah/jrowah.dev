@@ -20,7 +20,7 @@ defmodule JrowahWeb.TableOfContents do
   def toc(assigns) do
     ~H"""
     <ul class={@class}>
-      <li :for={%{label: label, href: href, children: children} <- @headings} class="toc-item">
+      <li :for={%{label: label, href: href, children: children} <- @headings}>
         <.link href={href} class="toc-link">
           <%= label %>
         </.link>

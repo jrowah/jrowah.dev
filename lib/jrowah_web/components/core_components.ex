@@ -286,7 +286,7 @@ defmodule JrowahWeb.CoreComponents do
   @spec navbar(map()) :: Phoenix.LiveView.Rendered.t()
   def navbar(assigns) do
     ~H"""
-    <nav class="flex h-[80px] bg-white dark:bg-gray-800 w-full font-bold text-sm md:text-base lg:text-lg text-blue-600 dark:text-gray-400">
+    <nav class="nav dark:bg-gray-800 w-full font-bold text-sm md:text-base lg:text-lg text-blue-600 dark:text-gray-400">
       <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4">
         <.avatar />
 

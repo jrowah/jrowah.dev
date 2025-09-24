@@ -5,4 +5,142 @@
 /* This file is for your main application CSS */
 @import '/markdown/markdown.css';
 @import '/journey/journey.css';
-@import '/table-of-contents.css';
+
+:root {
+  --header-height: 60px;
+  --header-bg-color: #ffffff;
+}
+
+/* Table of Contents Styles */
+.toc-container {
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: #64748b;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.toc-link:hover {
+  color: #334155;
+  background-color: #f1f5f9;
+}
+
+/* Nested list styling */
+.toc-nested {
+  margin-left: 1rem;
+  margin-top: 0.25rem;
+  border-left: 1px solid #cbd5e1;
+  padding-left: 0.75rem;
+}
+
+.toc-nested .toc-link {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  padding: 0.375rem 0.5rem;
+}
+
+.toc-nested .toc-link:hover {
+  color: #3b82f6;
+}
+
+/* Active state styling */
+.toc-link.active {
+  color: #1e40af;
+  background-color: #dbeafe;
+  font-weight: 500;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .toc-link {
+    color: #94a3b8;
+  }
+
+  .toc-link:hover {
+    color: #e2e8f0;
+    background-color: #334155;
+  }
+
+  /* Nested list styling for dark mode */
+  .toc-nested {
+    border-left-color: #475569;
+  }
+
+  .toc-nested .toc-link {
+    color: #64748b;
+  }
+
+  .toc-nested .toc-link:hover {
+    color: #60a5fa;
+  }
+
+  /* Active state styling for dark mode */
+  .toc-link.active {
+    color: #60a5fa;
+    background-color: #1e3a8a;
+  }
+}
+
+/* Manual dark mode class override (if you use a toggle) */
+.dark .toc-link {
+  color: #94a3b8;
+}
+
+.dark .toc-link:hover {
+  color: #e2e8f0;
+  background-color: #334155;
+}
+
+.dark .toc-nested {
+  border-left-color: #475569;
+}
+
+.dark .toc-nested .toc-link {
+  color: #64748b;
+}
+
+.dark .toc-nested .toc-link:hover {
+  color: #60a5fa;
+}
+
+.dark .toc-link.active {
+  color: #60a5fa;
+  background-color: #1e3a8a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1279px) {
+  .toc-sidebar {
+    display: none;
+  }
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for fixed header if you have one */
+[id] {
+  scroll-margin-top: calc(var(--header-height) + 2rem);
+}
+
+nav {
+  display: flex;
+  height: var(--header-height);
+  background-color: var(--header-bg-color);
+}
