@@ -2,7 +2,7 @@
     slug: "system-design-concepts",
     title: "Beyond Syntax: A Self-Taught Developer's Journey into System Design",
     description: "The introductory part of a series of blogs posts about system design concepts in software development every self-taught software developer needs to master.",
-    tags: ["System Design", "Databases", "DNS", "Proxies", "Latency", "Scaling", "Load Balancing", "Database Indexing", "Replication", "Sharding", "partitioning", "cashing", "CDN", "web sockets", "webhooks", "microservices", "message queuing", "rate limiting", "idempotency"],
+    tags: ["System Design", "Servers"],
     hero_image: "/images/2025/system_design_concepts.jpg",
     published: true
 }

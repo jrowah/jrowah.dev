@@ -1,41 +1,44 @@
-<div>
-  <.page_intro title="My Blog Posts" class="space-y-4">
-    <p>
-      This space is for documenting my learning, while also being a common place for sharing material with others, especially those I teach and mentor. My primary focus is on sharing real-world experiences, whether it's diving into unfamiliar technologies or refining techniques in areas I already know, and making sure this documentation is designed to be a resource for my self and anyone who might be on a similar learning path.
-    </p>
-    <p>
-      In these blogs you'll find in-depth posts on mastering emerging tools, real-world problem-solving, reflections on growth, and a few basic tips and topics for those who are just getting started. I hope you find it interesting, and if you do, please share it. Muchas gracias!
-    </p>
-  </.page_intro>
+<div class="flex gap-4 md:gap-8 lg:gap-12">
+  <div class="flex-1 min-w-0">
+    <.page_intro title="My Blog Posts" class="space-y-4">
+      <p>
+        This space is for documenting my learning, while also being a common place for sharing material with others, especially those I teach and mentor. My primary focus is on sharing real-world experiences, whether it's diving into unfamiliar technologies or refining techniques in areas I already know, and making sure this documentation is designed to be a resource for my self and anyone who might be on a similar learning path.
+      </p>
+      <p>
+        In these blogs you'll find in-depth posts on mastering emerging tools, real-world problem-solving, reflections on growth, and a few basic tips and topics for those who are just getting started. I hope you find it interesting, and if you do, please share it. Muchas gracias!
+      </p>
+    </.page_intro>
 
-  <section class="my-4">
-    <span>Top Tags:</span>
-    <.blog_tags
-      id="mobile-tag-list"
-      tags={@all_tags}
-      search_tag={@search_tag}
-      select_event="select-tag"
-    />
-
-    <button
-      phx-click="get_all_articles"
-      class="bg-gray-200 dark:bg-zinc-700 rounded-lg px-2 py-1 mt-2 transition-transform duration-100 hover:scale-105 focus:bg-blue-500 focus:dark:bg-blue-500 focus:text-white"
-    >
-      All
-    </button>
-  </section>
-
-  <div class="posts grid grid-cols-1 gap-8 m-2 md:mt-8 md:grid-cols-2">
-    <.article_card
-      :for={{dom_id, article} <- @streams.articles}
-      class="bg-zinc-300 dark:bg-zinc-800 p-4 rounded-lg"
-      date={article.date}
-      description={article.description}
-      id={dom_id}
-      link={"/blog/" <> article.slug}
-      reading_time={article.reading_time}
-      tags={article.tags}
-      title={article.title}
-    />
+    <div class="posts grid grid-cols-1 gap-8 m-2 md:mt-8 md:grid-cols-2">
+      <.article_card
+        :for={{dom_id, article} <- @streams.articles}
+        class="bg-zinc-300 dark:bg-zinc-800 p-4 rounded-lg"
+        date={article.date}
+        description={article.description}
+        id={dom_id}
+        link={"/blog/" <> article.slug}
+        reading_time={article.reading_time}
+        tags={article.tags}
+        title={article.title}
+      />
+    </div>
   </div>
+  <aside class="w-64 flex-shrink-0 hidden md:block">
+    <div class="sticky top-20 bg-white dark:bg-gray-800 p-4">
+      <span class="font-semibold text-gray-700 dark:text-gray-300 block mb-3">Top Tags:</span>
+      <.blog_tags
+        id="mobile-tag-list"
+        tags={@all_tags}
+        search_tag={@search_tag}
+        select_event="select-tag"
+      />
+
+      <button
+        phx-click="get_all_articles"
+        class="bg-gray-200 dark:bg-zinc-700 rounded-lg px-2 py-1 mt-2 transition-transform duration-100 hover:scale-105 focus:bg-blue-500 focus:dark:bg-blue-500 focus:text-white w-full"
+      >
+        All
+      </button>
+    </div>
+  </aside>
 </div>

@@ -252,7 +252,7 @@ defmodule JrowahWeb.CoreComponents do
   @spec blog_tags(map()) :: Phoenix.LiveView.Rendered.t()
   def blog_tags(assigns) do
     ~H"""
-    <section id={@id} class="mx-2">
+    <section id={@id}>
       <div class="flex flex-wrap gap-2">
         <button
           :for={tag <- @tags}
@@ -286,7 +286,7 @@ defmodule JrowahWeb.CoreComponents do
   @spec navbar(map()) :: Phoenix.LiveView.Rendered.t()
   def navbar(assigns) do
     ~H"""
-    <nav class="nav dark:bg-gray-800 w-full font-bold text-sm md:text-base lg:text-lg text-blue-600 dark:text-gray-400">
+    <nav class="nav dark:bg-gray-800 w-full font-bold text-sm md:text-base lg:text-lg text-blue-600 dark:text-gray-400 border-b-1 border-gray-200 dark:border-gray-700">
       <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4">
         <.avatar />
 
