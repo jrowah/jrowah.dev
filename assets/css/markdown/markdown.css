@@ -3,16 +3,53 @@
   text-decoration: underline;
 }
 
+/* Heading styles - Light mode */
+.markdown-content h1 {
+  font-weight: bold;
+  color: #1e3a8a; /* Dark blue - highest hierarchy */
+  font-size: 2rem; /* 32px */
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
 .markdown-content h2 {
-  font: bold;
-  color: #34c6eb;
-  font-size: 25px;
+  font-weight: bold;
+  color: #2563eb; /* Medium blue */
+  font-size: 1.5rem; /* 24px */
+  margin-bottom: 0.75rem;
+  margin-top: 1.25rem;
 }
 
 .markdown-content h3 {
-  font: bold;
-  color: orange;
-  font-size: 20px;
+  font-weight: bold;
+  color: #3b82f6; /* Lighter blue */
+  font-size: 1.25rem; /* 20px */
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.markdown-content h4 {
+  font-weight: bold;
+  color: #6366f1; /* Indigo */
+  font-size: 1.125rem; /* 18px */
+  margin-bottom: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.markdown-content h5 {
+  font-weight: bold;
+  color: #8b5cf6; /* Purple */
+  font-size: 1rem; /* 16px */
+  margin-bottom: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.markdown-content h6 {
+  font-weight: bold;
+  color: #64748b; /* Slate gray */
+  font-size: 0.875rem; /* 14px */
+  margin-bottom: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 /* List styles */
@@ -96,4 +133,64 @@
 .autumn-hl::-webkit-scrollbar-thumb {
   background-color: rgba(155, 155, 155, 0.5);
   border-radius: 4px;
+}
+
+/* Dark mode styles for headings */
+@media (prefers-color-scheme: dark) {
+  .markdown-content h1 {
+    color: #60a5fa; /* Bright blue for dark mode */
+  }
+
+  .markdown-content h2 {
+    color: #3b82f6; /* Medium blue for dark mode */
+  }
+
+  .markdown-content h3 {
+    color: #6366f1; /* Indigo for dark mode */
+  }
+
+  .markdown-content h4 {
+    color: #8b5cf6; /* Purple for dark mode */
+  }
+
+  .markdown-content h5 {
+    color: #a78bfa; /* Light purple for dark mode */
+  }
+
+  .markdown-content h6 {
+    color: #94a3b8; /* Light slate for dark mode */
+  }
+
+  .markdown-content a {
+    color: #60a5fa; /* Brighter blue for links in dark mode */
+  }
+}
+
+/* Manual dark mode class override (if you use a toggle) */
+.dark .markdown-content h1 {
+  color: #60a5fa;
+}
+
+.dark .markdown-content h2 {
+  color: #3b82f6;
+}
+
+.dark .markdown-content h3 {
+  color: #6366f1;
+}
+
+.dark .markdown-content h4 {
+  color: #8b5cf6;
+}
+
+.dark .markdown-content h5 {
+  color: #a78bfa;
+}
+
+.dark .markdown-content h6 {
+  color: #94a3b8;
+}
+
+.dark .markdown-content a {
+  color: #60a5fa;
 }
