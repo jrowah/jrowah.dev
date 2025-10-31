@@ -360,7 +360,7 @@ We will look at how this is achieved; where request is assigned a unique id, bef
 
 This introduction covers the roadmap for our system design journey. Each topic will be explored in detail in upcoming posts, with practical examples and real-world applications.
 
-**Part 1 Coming Soon!**
+**Part 1 is [up](https://jrowah.dev/blog/client-server-architecture)**
 
 ---
 
