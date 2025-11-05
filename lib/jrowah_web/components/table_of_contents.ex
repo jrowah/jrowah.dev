@@ -22,7 +22,7 @@ defmodule JrowahWeb.TableOfContents do
     <ul class={@class}>
       <li :for={%{label: label, href: href, children: children} <- @headings}>
         <.link href={href} class="toc-link">
-          <%= label %>
+          {label}
         </.link>
         <.toc :if={children != []} headings={children} class="toc-list toc-nested" />
       </li>

@@ -152,7 +152,7 @@ defmodule Jrowah.Blog.ArticleTest do
     test "MDEx includes IDs and anchor links" do
       assert MDEx.to_html("## Introduction\n", extension: [header_ids: ""]) ==
                {:ok,
-                "<h2><a href=\"#introduction\" aria-hidden=\"true\" class=\"anchor\" id=\"introduction\"></a>Introduction</h2>\n"}
+                "<h2><a href=\"#introduction\" aria-hidden=\"true\" class=\"anchor\" id=\"introduction\"></a>Introduction</h2>"}
     end
   end
 end

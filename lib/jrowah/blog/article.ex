@@ -116,7 +116,7 @@ defmodule Jrowah.Blog.Article do
 
     case attr do
       [] -> nil
-      [href | _] -> href
+      [href | _other] -> href
     end
   end
 end

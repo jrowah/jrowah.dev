@@ -23,17 +23,17 @@ defmodule JrowahWeb.Journey.JourneyComponents do
     ~H"""
     <div class="flex md:contents flex-row-reverse">
       <div class={["bg-gray-500 p-4 rounded-xl my-4 ml-auto shadow-md", @class]}>
-        <h1><%= @period %></h1>
+        <h1>{@period}</h1>
         <hr />
-        <h2 class="font-semibold text-lg mb-1"><%= @title %></h2>
+        <h2 class="font-semibold text-lg mb-1">{@title}</h2>
         <h3 class="font-semibold text-lg mb-1">
           <a href={@company_link} target="_blank" rel="noopener noreferrer">
             <img class="w-20" src={@src} alt={[@company <> " logo"]} />
-            <span><%= @company %></span>
+            <span>{@company}</span>
           </a>
         </h3>
         <h4>Tech Stack</h4>
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </div>
       <.line_tracker />
     </div>
@@ -56,19 +56,19 @@ defmodule JrowahWeb.Journey.JourneyComponents do
     <div class="flex md:contents">
       <.line_tracker />
       <div class="bg-gray-500 col-start-6 col-end-10 p-4 rounded-xl my-4 mr-auto shadow-md">
-        <h1><%= @period %></h1>
+        <h1>{@period}</h1>
         <hr />
         <h2 class="font-semibold text-lg mb-1">
-          <%= @title %>
+          {@title}
         </h2>
         <h3 class="font-semibold text-lg mb-1">
           <a href={@company_link} target="_blank" rel="noopener noreferrer">
             <img class="w-20" src={@src} alt={[@company <> " logo"]} />
-            <span><%= @company %></span>
+            <span>{@company}</span>
           </a>
         </h3>
         <h4>Tech Stack:</h4>
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </div>
     </div>
     """

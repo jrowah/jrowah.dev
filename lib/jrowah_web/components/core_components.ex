@@ -82,7 +82,7 @@ defmodule JrowahWeb.CoreComponents do
       class="text-blue-600 dark:text-blue-500 text-3xl md:text-4xl"
     />
     <div class={[@inner_block != [] && "text-pretty my-4 leading-relaxed md:my-6", @class]}>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -98,9 +98,9 @@ defmodule JrowahWeb.CoreComponents do
   def title(assigns) do
     ~H"""
     <h1 class={["text-3xl font-semibold", @class]}>
-      <%= @text %>
+      {@text}
       <span class="from-pink-600 to-blue-800 bg-gradient-to-r bg-clip-text text-transparent">
-        <%= @extended_text %>
+        {@extended_text}
       </span>
     </h1>
     """
@@ -127,17 +127,17 @@ defmodule JrowahWeb.CoreComponents do
     shadow-[0_4px_10px_rgba(0,0,0,0.2)]">
       <div class="card-body">
         <h2 class="text-bold text-pretty mb-4">
-          <%= @title %>
+          {@title}
         </h2>
         <p class="text-pretty mb-4">
-          <%= @description %>
+          {@description}
         </p>
 
         <div class="card-actions justify-end">
           <div class="flex items-center space-x-2">
             <.icon name="hero-link" class="text-content group-hover:text-primary" />
             <span class="text-content group-hover:text-primary group-hover:underline">
-              <.link href={@link} target="_blank" class="text-blue-600"><%= @link_label %></.link>
+              <.link href={@link} target="_blank" class="text-blue-600">{@link_label}</.link>
             </span>
           </div>
         </div>
@@ -181,17 +181,17 @@ defmodule JrowahWeb.CoreComponents do
       ]}>
         <div class="article-card">
           <h2 class="card-title text-pretty mb-4 text-blue-400 md:text-2xl">
-            <%= @title %>
+            {@title}
           </h2>
           <hr class="border border-gray-600 dark:border-white mb-2" />
           <%!-- <hr class="bg-gray-900 dark:bg-white" /> --%>
           <div class="mb-4 flex w-fit items-center">
             <span class="text-xs font-semibold">
-              <%= Calendar.strftime(@date, "%d %B %Y") %>
+              {Calendar.strftime(@date, "%d %B %Y")}
             </span>
             <span class="bg-base-content mx-2 h-px w-4 flex-1 opacity-20" />
             <span class="text-xs font-semibold">
-              <%= @reading_time %> min read
+              {@reading_time} min read
             </span>
           </div>
           <div :if={@tags != []} class="mb-4 flex flex-wrap gap-x-2 gap-y-2">
@@ -213,12 +213,17 @@ defmodule JrowahWeb.CoreComponents do
                 <% "TailwindCSS" -> %>
                   <span class="text-[#64B5F6]">TailwindCSS</span>
                 <% _other -> %>
-                  <%= tag %>
+                  {tag}
               <% end %>
             </span>
           </div>
           <p class="text-pretty mb-4">
-            <%= @description %>
+            <%= case String.length(@description) do %>
+              <% len when len > 150 -> %>
+                {String.slice(@description, 0, 157) <> "..."}
+              <% _shorter -> %>
+                {@description}
+            <% end %>
           </p>
           <div class="card-actions justify-end">
             <div class="flex items-center space-x-2">
@@ -264,7 +269,7 @@ defmodule JrowahWeb.CoreComponents do
               "bg-gray-200 dark:bg-zinc-700"
           ]}
         >
-          <%= tag %>
+          {tag}
         </button>
       </div>
     </section>
@@ -306,7 +311,7 @@ defmodule JrowahWeb.CoreComponents do
               <span class="inline-flex items-center justify-center text-center bg-blue-500 h-6 w-6 rounded-full text-white dark:bg-blue-600">
                 <.icon name={nav_icon_names(label)} class="w-4 h-4" />
               </span>
-              <%= label %>
+              {label}
             </.link>
           </div>
 
@@ -319,7 +324,7 @@ defmodule JrowahWeb.CoreComponents do
                   active?(@current_url, route) && "underline underline-offset-8"
                 ]}
               >
-                <%= label %>
+                {label}
               </.link>
             </nav>
           </.mobile_navigation_modal>
@@ -361,7 +366,7 @@ defmodule JrowahWeb.CoreComponents do
       <hr />
       <div class="flex justify-between px-10 py-5 bg-base-200 text-base-content text-blue-600 dark:text-gray-400">
         <div class="flex flex-col">
-          <span>Copyright © Jrowah <%= DateTime.utc_now().year %></span>
+          <span>Copyright © Jrowah {DateTime.utc_now().year}</span>
           <.link navigate={~p"/privacy-policy"} target="_blank">
             Privacy Policy
           </.link>
@@ -381,8 +386,8 @@ defmodule JrowahWeb.CoreComponents do
               target="_blank"
               class="text-black dark:text-gray-400"
             >
-              <span class="hidden md:block"><%= label %></span>
-              <%= raw(svg) %>
+              <span class="hidden md:block">{label}</span>
+              {raw(svg)}
             </.link>
           </div>
         </div>
@@ -459,11 +464,11 @@ defmodule JrowahWeb.CoreComponents do
           <span class="ml-2 text-blue-600 dark:text-gray-400 text-lg">Experience:</span>
         </div>
         <p class="ml-8 font-bold">
-          <%= gettext("%{years} Years and ", years: @years) %><%= ngettext(
+          {gettext("%{years} Years and ", years: @years)}{ngettext(
             "1 Month",
             "%{count} Months",
             @months
-          ) %><%= gettext(": Worked at OptimumBA, and now at Expivot Labs and Open Source.") %>
+          )}{gettext(": Worked at OptimumBA, and now at Expivot Labs and Open Source.")}
         </p>
       </li>
       <li>
@@ -471,7 +476,7 @@ defmodule JrowahWeb.CoreComponents do
           <span>
             <svg
               version="1.1"
-              id="Layer_1"
+              id="Layer_2"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
               x="0px"
@@ -501,7 +506,7 @@ defmodule JrowahWeb.CoreComponents do
           <span>
             <svg
               version="1.1"
-              id="Layer_1"
+              id="Layer_3"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
               x="0px"
@@ -591,7 +596,7 @@ defmodule JrowahWeb.CoreComponents do
               id={"#{@id}-content"}
               class="flex items-center justify-center space-x-2 text-black dark:text-gray-400"
             >
-              <%= render_slot(@inner_block) %>
+              {render_slot(@inner_block)}
             </div>
           </.focus_wrap>
         </div>
@@ -661,7 +666,7 @@ defmodule JrowahWeb.CoreComponents do
                 </button>
               </div>
               <div id={"#{@id}-content"}>
-                <%= render_slot(@inner_block) %>
+                {render_slot(@inner_block)}
               </div>
             </.focus_wrap>
           </div>
@@ -713,7 +718,7 @@ defmodule JrowahWeb.CoreComponents do
               </button>
             </div>
             <div id={"#{@id}-content"}>
-              <%= render_slot(@inner_block) %>
+              {render_slot(@inner_block)}
             </div>
           </.focus_wrap>
         </div>
@@ -757,9 +762,9 @@ defmodule JrowahWeb.CoreComponents do
       <p :if={@title} class="flex items-center gap-1.5 text-sm font-semibold leading-6">
         <.icon :if={@kind == :info} name="hero-information-circle-mini" class="h-4 w-4" />
         <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="h-4 w-4" />
-        <%= @title %>
+        {@title}
       </p>
-      <p class="mt-2 text-sm leading-5"><%= msg %></p>
+      <p class="mt-2 text-sm leading-5">{msg}</p>
       <button type="button" class="group absolute top-1 right-1 p-2" aria-label={gettext("close")}>
         <.icon name="hero-x-mark-solid" class="h-5 w-5 opacity-40 group-hover:opacity-70" />
       </button>
@@ -790,7 +795,7 @@ defmodule JrowahWeb.CoreComponents do
         phx-connected={hide("#client-error")}
         hidden
       >
-        <%= gettext("Attempting to reconnect") %>
+        {gettext("Attempting to reconnect")}
         <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
       </.flash>
 
@@ -802,7 +807,7 @@ defmodule JrowahWeb.CoreComponents do
         phx-connected={hide("#server-error")}
         hidden
       >
-        <%= gettext("Hang in there while we get back on track") %>
+        {gettext("Hang in there while we get back on track")}
         <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
       </.flash>
     </div>
@@ -836,9 +841,9 @@ defmodule JrowahWeb.CoreComponents do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
       <div class="mt-10 space-y-8 bg-white">
-        <%= render_slot(@inner_block, f) %>
+        {render_slot(@inner_block, f)}
         <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
-          <%= render_slot(action, f) %>
+          {render_slot(action, f)}
         </div>
       </div>
     </.form>
@@ -870,7 +875,7 @@ defmodule JrowahWeb.CoreComponents do
       ]}
       {@rest}
     >
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </button>
     """
   end
@@ -954,9 +959,9 @@ defmodule JrowahWeb.CoreComponents do
           class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
           {@rest}
         />
-        <%= @label %>
+        {@label}
       </label>
-      <.error :for={msg <- @errors}><%= msg %></.error>
+      <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
   end
@@ -964,7 +969,7 @@ defmodule JrowahWeb.CoreComponents do
   def input(%{type: "select"} = assigns) do
     ~H"""
     <div>
-      <.label for={@id}><%= @label %></.label>
+      <.label for={@id}>{@label}</.label>
       <select
         id={@id}
         name={@name}
@@ -972,10 +977,10 @@ defmodule JrowahWeb.CoreComponents do
         multiple={@multiple}
         {@rest}
       >
-        <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+        <option :if={@prompt} value="">{@prompt}</option>
+        {Phoenix.HTML.Form.options_for_select(@options, @value)}
       </select>
-      <.error :for={msg <- @errors}><%= msg %></.error>
+      <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
   end
@@ -983,7 +988,7 @@ defmodule JrowahWeb.CoreComponents do
   def input(%{type: "textarea"} = assigns) do
     ~H"""
     <div>
-      <.label for={@id}><%= @label %></.label>
+      <.label for={@id}>{@label}</.label>
       <textarea
         id={@id}
         name={@name}
@@ -994,7 +999,7 @@ defmodule JrowahWeb.CoreComponents do
         ]}
         {@rest}
       ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
-      <.error :for={msg <- @errors}><%= msg %></.error>
+      <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
   end
@@ -1003,7 +1008,7 @@ defmodule JrowahWeb.CoreComponents do
   def input(assigns) do
     ~H"""
     <div>
-      <.label for={@id}><%= @label %></.label>
+      <.label for={@id}>{@label}</.label>
       <input
         type={@type}
         name={@name}
@@ -1016,7 +1021,7 @@ defmodule JrowahWeb.CoreComponents do
         ]}
         {@rest}
       />
-      <.error :for={msg <- @errors}><%= msg %></.error>
+      <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
   end
@@ -1030,7 +1035,7 @@ defmodule JrowahWeb.CoreComponents do
   def label(assigns) do
     ~H"""
     <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </label>
     """
   end
@@ -1044,7 +1049,7 @@ defmodule JrowahWeb.CoreComponents do
     ~H"""
     <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600">
       <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </p>
     """
   end
@@ -1063,13 +1068,13 @@ defmodule JrowahWeb.CoreComponents do
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
         <h1 class="text-lg font-semibold leading-8 text-zinc-800">
-          <%= render_slot(@inner_block) %>
+          {render_slot(@inner_block)}
         </h1>
         <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
-          <%= render_slot(@subtitle) %>
+          {render_slot(@subtitle)}
         </p>
       </div>
-      <div class="flex-none"><%= render_slot(@actions) %></div>
+      <div class="flex-none">{render_slot(@actions)}</div>
     </header>
     """
   end
@@ -1110,9 +1115,9 @@ defmodule JrowahWeb.CoreComponents do
       <table class="w-[40rem] mt-11 sm:w-full">
         <thead class="text-sm text-left leading-6 text-zinc-500">
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
+            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal">{col[:label]}</th>
             <th :if={@action != []} class="relative p-0 pb-4">
-              <span class="sr-only"><%= gettext("Actions") %></span>
+              <span class="sr-only">{gettext("Actions")}</span>
             </th>
           </tr>
         </thead>
@@ -1130,7 +1135,7 @@ defmodule JrowahWeb.CoreComponents do
               <div class="block py-4 pr-6">
                 <span class="absolute -inset-y-px right-0 -left-4 group-hover:bg-zinc-50 sm:rounded-l-xl" />
                 <span class={["relative", i == 0 && "font-semibold text-zinc-900"]}>
-                  <%= render_slot(col, @row_item.(row)) %>
+                  {render_slot(col, @row_item.(row))}
                 </span>
               </div>
             </td>
@@ -1141,7 +1146,7 @@ defmodule JrowahWeb.CoreComponents do
                   :for={action <- @action}
                   class="relative ml-4 font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
                 >
-                  <%= render_slot(action, @row_item.(row)) %>
+                  {render_slot(action, @row_item.(row))}
                 </span>
               </div>
             </td>
@@ -1171,8 +1176,8 @@ defmodule JrowahWeb.CoreComponents do
     <div class="mt-14">
       <dl class="-my-4 divide-y divide-zinc-100">
         <div :for={item <- @item} class="flex gap-4 py-4 text-sm leading-6 sm:gap-8">
-          <dt class="w-1/4 flex-none text-zinc-500"><%= item.title %></dt>
-          <dd class="text-zinc-700"><%= render_slot(item) %></dd>
+          <dt class="w-1/4 flex-none text-zinc-500">{item.title}</dt>
+          <dd class="text-zinc-700">{render_slot(item)}</dd>
         </div>
       </dl>
     </div>
@@ -1197,7 +1202,7 @@ defmodule JrowahWeb.CoreComponents do
         class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
       >
         <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </.link>
     </div>
     """

@@ -15,25 +15,25 @@
     <span>Back to all articles</span>
   </.link>
   <.page_intro title={@article.title}>
-    <p><%= @article.description %></p>
+    <p>{@article.description}</p>
   </.page_intro>
   <div class="my-4 md:my-6">
     <div class="flex items-center justify-between">
       <div class="flex w-fit items-center">
         <span class="flex items-center space-x-2 text-sm font-semibold">
           <.icon name="hero-calendar" class="w-4 h-4" />
-          <span><%= Calendar.strftime(@article.date, "%d %B %Y") %></span>
+          <span>{Calendar.strftime(@article.date, "%d %B %Y")}</span>
         </span>
         <span class="bg-base-content mx-2 h-px w-4 flex-1 opacity-20" />
         <span class="text-sm font-semibold">
-          <%= @article.reading_time %> min read
+          {@article.reading_time} min read
         </span>
       </div>
     </div>
     <img src={@article.hero_image} alt={@article.title} class="h-96 w-full object-cover my-2" />
   </div>
   <article id="markdown" phx-hook="Markdown" class="leading-loose markdown-content">
-    <%= raw(@article.body) %>
+    {raw(@article.body)}
   </article>
 
   <div class="fixed bottom-4 right-16 rounded-full">

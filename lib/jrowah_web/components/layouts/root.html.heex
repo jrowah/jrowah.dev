@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title prefix="JRowah ">
-      <%= assigns[:page_title] || "Software Developer" %>
+      {assigns[:page_title] || "Software Developer"}
     </.live_title>
     <!-- Default Meta Tags -->
     <%= if assigns[:meta_assigns] do %>
@@ -52,6 +52,6 @@
     </script>
   </head>
   <body class="bg-white dark:bg-gray-800 antialiased">
-    <%= @inner_content %>
+    {@inner_content}
   </body>
 </html>
