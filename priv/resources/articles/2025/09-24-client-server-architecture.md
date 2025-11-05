@@ -2,7 +2,7 @@
     slug: "client-server-architecture",
     title: "The Client-Server Architecture",
     description: "Part One of the \"Beyond Syntax: A Self-Taught Developer's Journey into System Design\" that covers the Client - Server Architecture (client-server model, types of client-server architectures, client-server communication patterns, state management, different types of servers, and server architecture).",
-    tags: ["State Management", "Client-Server Architectures", "Server Infrastructure"],
+    tags: ["State", "", "Server Infrastructure"],
     hero_image: "/images/2025/client-server-architecture.png",
     published: true
 }
