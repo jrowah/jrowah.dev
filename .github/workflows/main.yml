@@ -34,7 +34,7 @@ jobs:
       - name: Compile
         env:
           MIX_ENV: test
-        run: mix compile
+        run: mix compile --force
   credo:
     needs: compile
     name: Credo
