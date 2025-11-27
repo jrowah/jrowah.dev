@@ -3,7 +3,7 @@ slug: "deploying-phoenix-app-to-fly",
 title: "Fixing Phoenix Socket Origin Error When Deploying to Fly.io with Custom Domain",
 description: "A step-by-step guide to resolve the 'Could not check origin for Phoenix.Socket transport' error when deploying a Phoenix application to Fly.io with a custom domain.",
 published: true,
-tags: ["Phoenix", "Deployment", "Fly", "Troubleshooting"],
+tags: ["hosting", "deployment", "fly", "devops"],
 hero_image: "/images/2024/fly_deploy.png"
 }
 

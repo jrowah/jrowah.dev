@@ -3,7 +3,7 @@ slug: "phoenix-migration",
 title: "Migrating Website from Gatsby to Phoenix and LiveView",
 description: "How and why I migrated from using React's Gatsby Framework and Netlify to using Phoenix, LiveView and Fly.io for my personal portfolio.",
 published: true,
-tags: ["Elixir", "LiveView", "Phoenix", "Web Development", "Fly", "TailwindCSS"],
+tags: ["website", "portfolio", "blogging"],
 hero_image: "/images/2024/elixir_phoenix.avif"
 }
 

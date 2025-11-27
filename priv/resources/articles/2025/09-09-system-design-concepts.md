@@ -2,7 +2,7 @@
     slug: "system-design-concepts",
     title: "Beyond Syntax: A Self-Taught Developer's Journey into System Design",
     description: "The introductory part of a series of blogs posts about system design concepts in software development every self-taught software developer needs to master.",
-    tags: ["System Design", "Servers"],
+    tags: ["system design", "client", "server"],
     hero_image: "/images/2025/system_design_concepts.jpg",
     published: true
 }
@@ -74,8 +74,6 @@ I will revisit the good old HTTP/HTTPS; set of rules that govern client-server c
 - HTTP security concerns; sends data as texts.
 - HTTPS sends data using SSL or TLS protocols
 
-### State Management
-- Involves understanding where state lives (client-side vs server-side), session management, and how to handle stateful vs stateless interactions
 ### Proxies
 - A middle man between your device and the internet, and forwards your requests to the target server. It hides your location, thereby keeping your location and identity private. 
 ## 3. Latency
