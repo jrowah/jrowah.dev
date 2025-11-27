@@ -88,7 +88,7 @@ defmodule JrowahWeb.BlogLiveTest do
 
         assert html =~ article.title
         # Check for description content in the page (not in meta tags)
-        assert html =~ ~r/Part One of the.*Beyond Syntax.*System Design/
+        assert html =~ ~r/Part Two of the.*Beyond Syntax.*System Design/
         assert html =~ "Back to all articles"
       end
     end
@@ -107,7 +107,7 @@ defmodule JrowahWeb.BlogLiveTest do
 
         # Check for description meta tag with HTML-encoded content
         assert html =~
-                 ~r/name="description" content="Part One of the.*Beyond Syntax.*System Design.*"/
+                 ~r/name="description" content="Part Two of the.*Beyond Syntax.*System Design.*"/
 
         assert html =~ ~s(name="author" content="#{article.author}")
 
@@ -119,7 +119,7 @@ defmodule JrowahWeb.BlogLiveTest do
 
         # Check for Open Graph description with HTML-encoded content
         assert html =~
-                 ~r/property="og:description" content="Part One of the.*Beyond Syntax.*System Design.*"/
+                 ~r/property="og:description" content="Part Two of the.*Beyond Syntax.*System Design.*"/
 
         # Check for Twitter tags
         assert html =~ ~s(property="twitter:card" content="summary_large_image")
