@@ -15,6 +15,8 @@ defmodule Jrowah.Application do
       {Finch, name: Jrowah.Finch},
       # Start a worker by calling: Jrowah.Worker.start_link(arg)
       # {Jrowah.Worker, arg},
+      # Start the presence tracker
+      JrowahWeb.Presence,
       # Start to serve requests, typically the last entry
       JrowahWeb.Endpoint
     ]
