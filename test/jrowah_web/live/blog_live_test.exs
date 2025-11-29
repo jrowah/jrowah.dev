@@ -93,6 +93,125 @@ defmodule JrowahWeb.BlogLiveTest do
       end
     end
 
+    test "tracks presence when a single reader views an article", %{conn: conn} do
+      article = Blog.get_article_by_slug("computer-networking")
+
+      if article do
+        {:ok, show_live, _html} = live(conn, "/blog/#{article.slug}")
+
+        # Give presence time to track
+        :timer.sleep(50)
+
+        # Check that live_reading count is assigned
+        assert :sys.get_state(show_live.pid).socket.assigns.live_reading == 1
+      end
+    end
+
+    test "tracks multiple readers viewing the same article", %{conn: conn} do
+      article = Blog.get_article_by_slug("computer-networking")
+
+      if article do
+        # First reader
+        {:ok, show_live1, _html} = live(conn, "/blog/#{article.slug}")
+        :timer.sleep(50)
+
+        # Second reader
+        {:ok, show_live2, _html} = live(conn, "/blog/#{article.slug}")
+        :timer.sleep(50)
+
+        # Third reader
+        {:ok, show_live3, _html} = live(conn, "/blog/#{article.slug}")
+        :timer.sleep(100)
+
+        # All three should see the count as 3
+        assert :sys.get_state(show_live1.pid).socket.assigns.live_reading == 3
+        assert :sys.get_state(show_live2.pid).socket.assigns.live_reading == 3
+        assert :sys.get_state(show_live3.pid).socket.assigns.live_reading == 3
+      end
+    end
+
+    test "decreases count when a reader leaves", %{conn: conn} do
+      article = Blog.get_article_by_slug("computer-networking")
+
+      if article do
+        # First reader
+        {:ok, show_live1, _html} = live(conn, "/blog/#{article.slug}")
+        :timer.sleep(50)
+
+        # Second reader
+        {:ok, show_live2, _html} = live(conn, "/blog/#{article.slug}")
+        :timer.sleep(100)
+
+        # Both should see count of 2
+        assert :sys.get_state(show_live1.pid).socket.assigns.live_reading == 2
+        assert :sys.get_state(show_live2.pid).socket.assigns.live_reading == 2
+
+        # Stop the second reader's process
+        GenServer.stop(show_live2.pid)
+        :timer.sleep(100)
+
+        # First reader should now see count of 1
+        assert :sys.get_state(show_live1.pid).socket.assigns.live_reading == 1
+      end
+    end
+
+    test "updates live reading count via presence_diff", %{conn: conn} do
+      article = Blog.get_article_by_slug("computer-networking")
+
+      if article do
+        {:ok, show_live, _html} = live(conn, "/blog/#{article.slug}")
+        :timer.sleep(50)
+
+        initial_count = :sys.get_state(show_live.pid).socket.assigns.live_reading
+        assert initial_count == 1
+
+        # Simulate another reader joining
+        {:ok, _show_live2, _html} = live(conn, "/blog/#{article.slug}")
+        :timer.sleep(100)
+
+        # The first live view should receive presence_diff and update
+        assert :sys.get_state(show_live.pid).socket.assigns.live_reading == 2
+      end
+    end
+
+    test "different articles have independent presence tracking", %{conn: conn} do
+      article1 = Blog.get_article_by_slug("computer-networking")
+      articles = Blog.all_articles()
+      # Get a different article
+      article2 = Enum.find(articles, fn a -> a.slug != "computer-networking" end)
+
+      if article1 && article2 do
+        # Reader on article 1
+        {:ok, show_live1, _html} = live(conn, "/blog/#{article1.slug}")
+        :timer.sleep(50)
+
+        # Reader on article 2
+        {:ok, show_live2, _html} = live(conn, "/blog/#{article2.slug}")
+        :timer.sleep(50)
+
+        # Each should only count their own readers
+        assert :sys.get_state(show_live1.pid).socket.assigns.live_reading == 1
+        assert :sys.get_state(show_live2.pid).socket.assigns.live_reading == 1
+      end
+    end
+
+    test "subscribes to the correct PubSub topic for presence updates", %{conn: conn} do
+      article = Blog.get_article_by_slug("computer-networking")
+
+      if article do
+        {:ok, show_live, _html} = live(conn, "/blog/#{article.slug}")
+        :timer.sleep(50)
+
+        # Verify subscription by checking if the process receives presence_diff messages
+        # when another reader joins
+        {:ok, _show_live2, _html} = live(conn, "/blog/#{article.slug}")
+        :timer.sleep(100)
+
+        # If subscribed correctly, the count should update
+        assert :sys.get_state(show_live.pid).socket.assigns.live_reading == 2
+      end
+    end
+
     test "includes proper meta tags for SEO", %{conn: conn} do
       # Use specific article to avoid test failures when new articles are added
       article = Blog.get_article_by_slug("computer-networking")
