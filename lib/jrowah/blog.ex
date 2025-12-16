@@ -49,4 +49,12 @@ defmodule Jrowah.Blog do
 
   @spec recent_articles(count :: integer) :: []
   def recent_articles(count \\ 3), do: Enum.take(all_articles(), count)
+
+  @spec get_linked_articles(current_article :: map) :: %{previous: map | nil, next: map | nil}
+  def get_linked_articles(current_article) do
+    %{
+      previous: get_article_by_slug(current_article.previous_article_slug),
+      next: get_article_by_slug(current_article.next_article_slug)
+    }
+  end
 end

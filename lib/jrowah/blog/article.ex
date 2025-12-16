@@ -22,6 +22,8 @@ defmodule Jrowah.Blog.Article do
             body: "",
             description: "",
             tags: [],
+            previous_article_slug: "",
+            next_article_slug: "",
             date: nil,
             heading_links: [],
             hero_image: "",

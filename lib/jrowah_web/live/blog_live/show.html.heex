@@ -44,6 +44,35 @@
     {raw(@article.body)}
   </article>
 
+  <div
+    :if={@linked_articles.previous || @linked_articles.next}
+    class="flex justify-between gap-4 mt-12 mb-8"
+  >
+    <.link
+      :if={@linked_articles.previous}
+      navigate={~p"/blog/#{@linked_articles.previous.slug}"}
+      class="group inline-block px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium max-w-[45%]"
+    >
+      <div class="flex items-center gap-2">
+        <span>←</span>
+        <span class="truncate">Previous: {@linked_articles.previous.title}</span>
+      </div>
+    </.link>
+
+    <div :if={!@linked_articles.previous} class="flex-1"></div>
+
+    <.link
+      :if={@linked_articles.next}
+      navigate={~p"/blog/#{@linked_articles.next.slug}"}
+      class="group inline-block px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium max-w-[45%]"
+    >
+      <div class="flex items-center gap-2">
+        <span class="truncate">Next: {@linked_articles.next.title}</span>
+        <span>→</span>
+      </div>
+    </.link>
+  </div>
+
   <div class="fixed bottom-4 right-16 rounded-full">
     <button
       phx-click={show_modal("share-modal")}

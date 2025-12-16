@@ -34,6 +34,7 @@ defmodule JrowahWeb.BlogLive.Show do
          |> assign(:page_title, article.title)
          |> assign(:live_reading, live_reading)
          |> assign(:meta_assigns, meta_assigns)
+         |> assign(:linked_articles, Blog.get_linked_articles(article))
          |> assign(:json_ld, json_ld)}
     end
   end

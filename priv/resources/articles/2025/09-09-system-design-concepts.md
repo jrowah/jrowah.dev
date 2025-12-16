@@ -4,6 +4,8 @@
     description: "The introductory part of a series of blogs posts about system design concepts in software development every self-taught software developer needs to master.",
     tags: ["system design", "client", "server"],
     hero_image: "/images/2025/system_design_concepts.jpg",
+    next_article_slug: "client-server-architecture",
+    previous_article_slug: nil,
     published: true
 }
 
@@ -353,13 +355,3 @@ Examples;
 Network failures, and service retries are common in distributed systems. Take an example, during payment processing, when a user clicks "Pay Now" multiple times due to a slow connection, a system might request two payment requests instead of one. How do you design a system that handles such cases effectively?
 This is where **Idempotent systems** come in; they ensure that repeated requests produce the same result, as if the request were made only once
 We will look at how this is achieved; where request is assigned a unique id, before processing, the system checks if the request has already been handled, if yes, it ignores the duplicate request, if not, it processes the request normally.
-
-## What's Next?
-
-This introduction covers the roadmap for our system design journey. Each topic will be explored in detail in upcoming posts, with practical examples and real-world applications.
-
-**Part 1 is [up](https://jrowah.dev/blog/client-server-architecture)**
-
----
-
-*Ready to dive deep into system design? Follow along as we explore each concept with hands-on examples and practical insights.*

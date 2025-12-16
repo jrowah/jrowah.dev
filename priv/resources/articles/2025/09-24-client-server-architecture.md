@@ -4,6 +4,8 @@
     description: "Part One of the \"Beyond Syntax: A Self-Taught Developer's Journey into System Design\" that covers the Client - Server Architecture (client-server model, types of client-server architectures, client-server communication patterns, state management, different types of servers, and server architecture).",
     tags: ["state management", "clients", "server infrastructure"],
     hero_image: "/images/2025/client-server-architecture.png",
+    previous_article_slug: "system-design-concepts",
+    next_article_slug: "networking-fundamentals",
     published: true
 }
 
@@ -515,7 +517,4 @@ They can also be categorized depending on hosting types;
 
 ## Summary
 This article introduces the client-server architecture as the fundamental computing model powering all modern digital interactions, where user devices (clients) communicate with powerful servers over networks to access data and services. It covers the core components including different client types (browsers, mobile apps, crawlers), various communication patterns (request-response, polling, WebSocket, pub-sub), and state management strategies across client-side, server-side, cache, and session layers. The post explains different architectural tiers from monolithic (1-tier) to complex N-tier systems, emphasizing the separation of concerns between presentation logic on clients and business logic on servers. Finally, it explores server infrastructure evolution from physical bare-metal servers to virtualized machines and cloud computing, highlighting how modern applications leverage different server types optimized for specific workloads and performance requirements.
-
-
-Next up we will learn about networking fundamentals.
 

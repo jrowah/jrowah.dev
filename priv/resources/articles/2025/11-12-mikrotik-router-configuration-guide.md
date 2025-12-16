@@ -1,9 +1,11 @@
 %{
-    slug: "computer-networking-mikrotik-configuration",
+    slug: "mikrotik-configuration",
     title: "MikroTik Router Configuration Guide",
     description: "How to use a mikrotik as a secondary router with its own local network and install a billing system and sell hotspot from your regular monthly isp subscription or any other source of internet.",
     tags: ["routing", "ip", "dhcp", "nat", "networking"],
     hero_image: "/images/2025/mikrotik-wap-lte-kit.png",
+    next_article_slug: nil,
+    previous_article_slug: nil,
     published: true
 }
 
