@@ -315,28 +315,31 @@ defmodule JrowahWeb.CoreComponents do
             </.link>
           </div>
 
-          <.mobile_navigation_modal id="mobile_navigation_modal" header="Navigation">
-            <nav class="mt-4 flex flex-col space-y-4">
+          <input type="checkbox" id="mobile_nav_toggle" class="hidden peer" />
+
+          <div class="rounded-btn bg-base-300 block p-2 sm:hidden">
+            <label
+              for="mobile_nav_toggle"
+              class="btn-sm flex items-center font-semibold cursor-pointer"
+            >
+              <span><.icon name="hero-bars-3-solid" class="h-5 w-5" /></span>
+            </label>
+          </div>
+
+          <nav class="absolute left-0 right-0 top-16 hidden peer-checked:block sm:hidden shadow-lg">
+            <div class="flex flex-col space-y-4 shadow-b- p-4 bg-slate-200 dark:bg-black">
               <.link
                 :for={%{label: label, route: route} <- main_nav_links()}
                 navigate={route}
                 class={[
-                  active?(@current_url, route) && "underline underline-offset-8"
+                  "p-2 rounded hover:bg-zinc-700 transition-colors",
+                  active?(@current_url, route) && "bg-zinc-700 text-white"
                 ]}
               >
                 {label}
               </.link>
-            </nav>
-          </.mobile_navigation_modal>
-
-          <div class="rounded-btn bg-base-300 block p-2 sm:hidden">
-            <button
-              class="btn-sm flex items-center font-semibold"
-              phx-click={show_modal("mobile_navigation_modal")}
-            >
-              <span><.icon name="hero-bars-3-solid" class="h-5 w-5" /></span>
-            </button>
-          </div>
+            </div>
+          </nav>
         </div>
 
         <.theme_button />
@@ -670,57 +673,6 @@ defmodule JrowahWeb.CoreComponents do
               </div>
             </.focus_wrap>
           </div>
-        </div>
-      </div>
-    </div>
-    """
-  end
-
-  attr :id, :string, required: true
-  attr :header, :string, default: nil
-  attr :show, :boolean, default: false
-  attr :on_cancel, JS, default: %JS{}
-  slot :inner_block, required: true
-
-  defp mobile_navigation_modal(assigns) do
-    ~H"""
-    <div
-      id={@id}
-      phx-mounted={@show && show_modal(@id)}
-      phx-remove={hide_modal(@id)}
-      data-cancel={JS.exec(@on_cancel, "phx-remove")}
-      class="relative z-50 hidden bg-black"
-    >
-      <div
-        class="fixed inset-0 top-16 overflow-y-auto sm:hidden"
-        aria-labelledby={"#{@id}-title"}
-        aria-describedby={"#{@id}-description"}
-        role="dialog"
-        aria-modal="true"
-        tabindex="0"
-      >
-        <div class="w-full max-w-3xl p-4 sm:p-6 lg:py-8">
-          <.focus_wrap
-            id={"#{@id}-container"}
-            phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
-            phx-key="escape"
-            phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-            class="shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl bg-zinc-800 p-8 shadow-lg ring-1 transition"
-          >
-            <div class="absolute top-6 right-5">
-              <button
-                phx-click={JS.exec("data-cancel", to: "##{@id}")}
-                type="button"
-                class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
-                aria-label={gettext("close")}
-              >
-                <.icon name="hero-x-mark-solid" class="h-5 w-5" />
-              </button>
-            </div>
-            <div id={"#{@id}-content"}>
-              {render_slot(@inner_block)}
-            </div>
-          </.focus_wrap>
         </div>
       </div>
     </div>
