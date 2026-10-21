@@ -220,7 +220,7 @@ jobs:
       - name: Check for security issues using sobelow
         env:
           MIX_ENV: test
-        run: mix sobelow --config .sobelow-conf
+        run: mix sobelow --config
   test:
     needs: compile
     name: Test
