@@ -8,7 +8,9 @@ defmodule JrowahWeb.HomeLiveTest do
       {:ok, _home_live, html} = live(conn, "/")
       assert html =~ "JRowah"
 
-      assert html =~ "Software developer, biochemist and educator"
+      assert html =~ "Developer · Computational Biochemist · Educator"
+      assert html =~ "Atulabs Science"
+      assert html =~ "href=\"https://atulabs.science/\""
     end
 
     test "has nav links that are clickable and lead to the correct pages", %{conn: conn} do

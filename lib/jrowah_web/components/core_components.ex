@@ -123,24 +123,32 @@ defmodule JrowahWeb.CoreComponents do
   @spec project_card(map()) :: Phoenix.LiveView.Rendered.t()
   def project_card(assigns) do
     ~H"""
-    <article class="project-card card p-4 group h-full w-full transition-all hover:-translate-y-1 hover:-bg-gray-300 shadow-xl dark:shadow-[0_4px_10px_rgba(255,255,255,0.5)]
-    shadow-[0_4px_10px_rgba(0,0,0,0.2)]">
-      <div class="card-body">
-        <h2 class="text-bold text-pretty mb-4">
-          {@title}
-        </h2>
-        <p class="text-pretty mb-4">
-          {@description}
-        </p>
-
-        <div class="card-actions justify-end">
-          <div class="flex items-center space-x-2">
-            <.icon name="hero-link" class="text-content group-hover:text-primary" />
-            <span class="text-content group-hover:text-primary group-hover:underline">
-              <.link href={@link} target="_blank" class="text-blue-600">{@link_label}</.link>
-            </span>
-          </div>
-        </div>
+    <article class="project-card group flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 transition duration-200 hover:-translate-y-1 hover:border-amber-400 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900/50 dark:hover:border-amber-400/70">
+      <div class="flex items-start justify-between gap-4">
+        <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-100 text-amber-800 dark:bg-amber-400/10 dark:text-amber-300">
+          <.icon name="hero-sparkles" class="h-5 w-5" />
+        </span>
+        <.icon
+          name="hero-arrow-up-right"
+          class="h-5 w-5 text-slate-400 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-amber-600 dark:group-hover:text-amber-300"
+        />
+      </div>
+      <h2 class="mt-6 text-xl font-bold leading-snug text-slate-900 dark:text-white">
+        {@title}
+      </h2>
+      <p class="mt-3 flex-1 leading-7 text-slate-600 dark:text-slate-400">
+        {@description}
+      </p>
+      <div class="mt-6 border-t border-slate-100 pt-4 dark:border-slate-700">
+        <.link
+          href={@link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 transition hover:text-amber-700 dark:text-slate-200 dark:hover:text-amber-300"
+        >
+          {@link_label}
+          <.icon name="hero-arrow-up-right" class="h-4 w-4" />
+        </.link>
       </div>
     </article>
     """
@@ -166,6 +174,7 @@ defmodule JrowahWeb.CoreComponents do
   attr :id, :string, default: nil
   attr :class, :string, default: nil
   attr :link, :string, required: true
+  attr :image, :string, default: nil
   attr :description, :string, required: true
   attr :tags, :list, default: []
   attr :date, :any, required: true
@@ -176,62 +185,46 @@ defmodule JrowahWeb.CoreComponents do
     ~H"""
     <.link id={@id} navigate={@link} rel="noopener noreferrer">
       <article class={[
-        "card group h-full w-full cursor-pointer transition-all hover:-translate-y-1",
+        "group h-full w-full overflow-hidden rounded-3xl transition duration-200 hover:-translate-y-1 hover:border-amber-400 hover:shadow-xl",
         @class
       ]}>
-        <div class="article-card">
-          <h2 class="card-title text-pretty mb-4 text-blue-400 md:text-2xl">
+        <img
+          :if={@image}
+          src={@image}
+          alt=""
+          loading="lazy"
+          class="aspect-[16/9] w-full bg-slate-100 object-cover dark:bg-slate-800"
+        />
+        <div class="flex h-full flex-col p-6">
+          <div class="mb-4 flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+            <span>{Calendar.strftime(@date, "%d %b %Y")}</span>
+            <span class="h-1 w-1 rounded-full bg-amber-500"></span>
+            <span>{@reading_time} min read</span>
+          </div>
+          <h2 class="text-pretty text-xl font-bold leading-snug text-slate-900 transition group-hover:text-amber-700 dark:text-white dark:group-hover:text-amber-300 md:text-2xl">
             {@title}
           </h2>
-          <hr class="border border-gray-600 dark:border-white mb-2" />
-          <%!-- <hr class="bg-gray-900 dark:bg-white" /> --%>
-          <div class="mb-4 flex w-fit items-center">
-            <span class="text-xs font-semibold">
-              {Calendar.strftime(@date, "%d %B %Y")}
-            </span>
-            <span class="bg-base-content mx-2 h-px w-4 flex-1 opacity-20" />
-            <span class="text-xs font-semibold">
-              {@reading_time} min read
-            </span>
-          </div>
-          <div :if={@tags != []} class="mb-4 flex flex-wrap gap-x-2 gap-y-2">
-            <span
-              :for={tag <- @tags}
-              class="bg-gray-200 dark:bg-zinc-700 rounded-lg px-2 py-1 transition-transform duration-100 hover:scale-105"
-            >
-              <%= case tag do %>
-                <% "Elixir" -> %>
-                  <span class="text-[#BA68C8]">Elixir</span>
-                <% "Phoenix" -> %>
-                  <span class="text-[#F4511E]">Phoenix</span>
-                <% "LiveView" -> %>
-                  <span class="from-orange-400 to-blue-500 bg-gradient-to-r bg-clip-text text-transparent">
-                    LiveView
-                  </span>
-                <% "Ecto" -> %>
-                  <span class="text-[#66BB6A]">Ecto</span>
-                <% "TailwindCSS" -> %>
-                  <span class="text-[#64B5F6]">TailwindCSS</span>
-                <% _other -> %>
-                  {tag}
-              <% end %>
-            </span>
-          </div>
-          <p class="text-pretty mb-4">
-            <%= case String.length(@description) do %>
-              <% len when len > 150 -> %>
-                {String.slice(@description, 0, 157) <> "..."}
-              <% _shorter -> %>
-                {@description}
+          <p class="mt-3 flex-1 leading-7 text-slate-600 dark:text-slate-400">
+            <%= if String.length(@description) > 160 do %>
+              {String.slice(@description, 0, 157) <> "..."}
+            <% else %>
+              {@description}
             <% end %>
           </p>
-          <div class="card-actions justify-end">
-            <div class="flex items-center space-x-2">
-              <span class="text-content group-hover:text-primary group-hover:underline">
-                Read more
-              </span>
-              <.icon name="hero-arrow-right" class="text-content group-hover:text-primary" />
-            </div>
+          <div :if={@tags != []} class="mt-5 flex flex-wrap gap-2">
+            <span
+              :for={tag <- @tags}
+              class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300"
+            >
+              {tag}
+            </span>
+          </div>
+          <div class="mt-6 flex items-center gap-2 border-t border-slate-100 pt-4 text-sm font-semibold text-slate-700 dark:border-slate-700 dark:text-slate-200">
+            Read article
+            <.icon
+              name="hero-arrow-right"
+              class="h-4 w-4 transition group-hover:translate-x-1 group-hover:text-amber-600 dark:group-hover:text-amber-300"
+            />
           </div>
         </div>
       </article>
@@ -264,9 +257,10 @@ defmodule JrowahWeb.CoreComponents do
           phx-click="filter_by_tag"
           phx-value-tag={tag}
           class={[
-            "rounded-lg px-2 py-1 transition-transform duration-100 hover:scale-105",
-            (String.downcase(tag) == @search_tag && "bg-blue-500 dark:bg-blue-500 text-white") ||
-              "bg-gray-200 dark:bg-zinc-700"
+            "rounded-full border px-3 py-1.5 text-sm font-medium transition",
+            (String.downcase(tag) == @search_tag &&
+               "border-slate-900 bg-slate-900 text-white dark:border-amber-400 dark:bg-amber-400 dark:text-slate-950") ||
+              "border-slate-300 text-slate-600 hover:border-slate-500 dark:border-slate-600 dark:text-slate-300"
           ]}
         >
           {tag}

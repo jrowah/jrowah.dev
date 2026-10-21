@@ -1,98 +1,110 @@
-<div class="relative w-full max-w-3xl mx-auto px-4 md:px-0">
-  <!-- Table of Contents - Positioned as left sidebar on larger screens -->
-  <div class="absolute top-16 bottom-16 -left-72 w-64 toc-sidebar">
-    <div class="sticky top-28 hidden xl:block toc-container">
-      <h3 class="text-sm font-semibold mb-4 text-gray-700">Table of Contents</h3>
-      <.toc headings={@article.heading_links} />
-    </div>
-  </div>
-
-  <.link
-    navigate={~p"/blog"}
-    class="flex items-center space-x-1 text-sm hover:underline hover:text-primary mb-4 md:mb-6"
-  >
-    <.icon name="hero-arrow-left" class="w-4 h-4" />
-    <span>Back to all articles</span>
-  </.link>
-  <.page_intro title={@article.title}>
-    <p>{@article.description}</p>
-  </.page_intro>
-  <div class="my-4 md:my-6">
-    <div class="flex items-center justify-between">
-      <div class="flex w-fit items-center">
-        <span class="flex items-center space-x-2 text-sm font-semibold">
-          <.icon name="hero-calendar" class="w-4 h-4" />
-          <span>{Calendar.strftime(@article.date, "%d %B %Y")}</span>
-        </span>
-        <span class="bg-base-content mx-2 h-px w-4 flex-1 opacity-20" />
-        <span class="text-sm font-semibold">
-          {@article.reading_time} min read
-        </span>
+<div class="mx-auto max-w-5xl pb-20 pt-6">
+  <div class="grid gap-10 xl:grid-cols-[220px_minmax(0,760px)]">
+    <aside :if={@article.heading_links != []} class="hidden xl:block">
+      <div class="sticky top-28 rounded-2xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-900/40">
+        <h2 class="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+          In this article
+        </h2>
+        <div class="toc-container">
+          <.toc headings={@article.heading_links} />
+        </div>
       </div>
-      <div class="mt-2 flex items-center space-x-2 md:mt-4">
-        <span class="relative flex h-3 w-3">
-          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75 duration-500">
+    </aside>
+
+    <div class="min-w-0">
+      <.link
+        navigate={~p"/blog"}
+        class="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-400"
+      >
+        <.icon name="hero-arrow-left" class="h-4 w-4" /> Back to all articles
+      </.link>
+
+      <header>
+        <div :if={@article.tags != []} class="mb-4 flex flex-wrap gap-2">
+          <span
+            :for={tag <- @article.tags}
+            class="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-900 dark:bg-amber-400/10 dark:text-amber-300"
+          >
+            {tag}
           </span>
-          <span class="relative inline-flex h-3 w-3 rounded-full bg-green-500"></span>
-        </span>
-        <span class="text-sm font-semibold">{@live_reading} reading now</span>
-      </div>
+        </div>
+        <h1 class="text-3xl font-bold leading-tight tracking-tight text-slate-950 dark:text-white md:text-5xl">
+          {@article.title}
+        </h1>
+        <p class="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
+          {@article.description}
+        </p>
+        <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 border-y border-slate-200 py-4 text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
+          <span class="inline-flex items-center gap-2 font-medium text-slate-700 dark:text-slate-200">
+            <.icon name="hero-calendar" class="h-4 w-4" />
+            {Calendar.strftime(@article.date, "%d %B %Y")}
+          </span>
+          <span class="inline-flex items-center gap-2">
+            <.icon name="hero-clock" class="h-4 w-4" />
+            {@article.reading_time} min read
+          </span>
+          <span class="inline-flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+            {@live_reading} reading now
+          </span>
+        </div>
+      </header>
+
+      <img
+        src={@article.hero_image}
+        alt={@article.title}
+        class="my-8 aspect-[16/9] w-full rounded-3xl bg-slate-100 object-cover shadow-sm dark:bg-slate-800"
+      />
+
+      <article id="markdown" phx-hook="Markdown" class="markdown-content">
+        {raw(@article.body)}
+      </article>
+
+      <nav
+        :if={@linked_articles.previous || @linked_articles.next}
+        aria-label="More articles"
+        class="mt-14 grid gap-3 border-t border-slate-200 pt-6 dark:border-slate-700 sm:grid-cols-2"
+      >
+        <.link
+          :if={@linked_articles.previous}
+          navigate={~p"/blog/#{@linked_articles.previous.slug}"}
+          class="group rounded-2xl border border-slate-200 p-4 transition hover:border-amber-400 hover:bg-amber-50 dark:border-slate-700 dark:hover:bg-slate-800"
+        >
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">← Previous article</span>
+          <span class="mt-2 block font-semibold text-slate-900 group-hover:text-amber-700 dark:text-white dark:group-hover:text-amber-300">
+            {@linked_articles.previous.title}
+          </span>
+        </.link>
+        <div :if={!@linked_articles.previous}></div>
+        <.link
+          :if={@linked_articles.next}
+          navigate={~p"/blog/#{@linked_articles.next.slug}"}
+          class="group rounded-2xl border border-slate-200 p-4 text-left transition hover:border-amber-400 hover:bg-amber-50 dark:border-slate-700 dark:hover:bg-slate-800 sm:text-right"
+        >
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Next article →</span>
+          <span class="mt-2 block font-semibold text-slate-900 group-hover:text-amber-700 dark:text-white dark:group-hover:text-amber-300">
+            {@linked_articles.next.title}
+          </span>
+        </.link>
+      </nav>
     </div>
-    <img src={@article.hero_image} alt={@article.title} class="h-96 w-full object-cover my-2" />
-  </div>
-  <article id="markdown" phx-hook="Markdown" class="leading-loose markdown-content">
-    {raw(@article.body)}
-  </article>
-
-  <div
-    :if={@linked_articles.previous || @linked_articles.next}
-    class="flex justify-between gap-4 mt-12 mb-8"
-  >
-    <.link
-      :if={@linked_articles.previous}
-      navigate={~p"/blog/#{@linked_articles.previous.slug}"}
-      class="group inline-block px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium max-w-[45%]"
-    >
-      <div class="flex items-center gap-2">
-        <span>←</span>
-        <span class="truncate">Previous: {@linked_articles.previous.title}</span>
-      </div>
-    </.link>
-
-    <div :if={!@linked_articles.previous} class="flex-1"></div>
-
-    <.link
-      :if={@linked_articles.next}
-      navigate={~p"/blog/#{@linked_articles.next.slug}"}
-      class="group inline-block px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium max-w-[45%]"
-    >
-      <div class="flex items-center gap-2">
-        <span class="truncate">Next: {@linked_articles.next.title}</span>
-        <span>→</span>
-      </div>
-    </.link>
   </div>
 
-  <div class="fixed bottom-4 right-16 rounded-full">
+  <div class="fixed bottom-5 right-5 z-40">
     <button
       phx-click={show_modal("share-modal")}
-      class="h-14 w-14 rounded-full flex hover:bg-slate-400 items-center justify-center"
+      aria-label="Share this article"
+      class="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-slate-700 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300"
     >
-      <.icon name="hero-share" class="w-7 h-7" />
+      <.icon name="hero-share" class="h-5 w-5" />
     </button>
     <.share_blog_modal id="share-modal">
-      <button class="group items-center space-x-2 cursor-pointer" id="copy-link">
-        <.icon
-          name="hero-clipboard-document"
-          class="text-content group-hover:text-primary text-black"
-        />
+      <button class="group flex cursor-pointer items-center gap-2" id="copy-link">
+        <.icon name="hero-clipboard-document" class="text-black group-hover:text-amber-600" />
         <span class="text-black">Copy link</span>
       </button>
-      <button class="group items-center space-x-2 cursor-pointer hidden" id="link-copied">
-        <.icon
-          name="hero-clipboard-document-check"
-          class="text-content group-hover:text-primary text-black"
-        />
+      <button class="group hidden cursor-pointer items-center gap-2" id="link-copied">
+        <.icon name="hero-clipboard-document-check" class="text-black group-hover:text-amber-600" />
         <span class="text-black">Link copied!</span>
       </button>
     </.share_blog_modal>

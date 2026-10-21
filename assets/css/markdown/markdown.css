@@ -110,13 +110,10 @@
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
-  padding: 0.75rem 1rem;
   line-height: 1.5;
 }
 
 .autumn-hl code {
-  padding-left: 1rem;
-  display: inline-block;
   line-height: 1.5;
 }
 
@@ -193,4 +190,85 @@
 
 .dark .markdown-content a {
   color: #60a5fa;
+}
+
+.markdown-content {
+  max-width: 72ch;
+  color: #334155;
+  font-size: 1.0625rem;
+  line-height: 1.9;
+}
+
+.dark .markdown-content {
+  color: #cbd5e1;
+}
+
+.markdown-content p {
+  margin: 1.25rem 0;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  scroll-margin-top: 6rem;
+  letter-spacing: -0.025em;
+}
+
+.markdown-content h2 {
+  margin-top: 2.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dark .markdown-content h2 {
+  border-color: #334155;
+}
+
+.markdown-content blockquote {
+  margin: 1.75rem 0;
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 0.75rem 0.75rem 0;
+  background: #f8fafc;
+  padding: 0.75rem 1.25rem;
+  color: #475569;
+}
+
+.dark .markdown-content blockquote {
+  background: #0f172a;
+  color: #cbd5e1;
+}
+
+.markdown-content img {
+  margin: 2rem auto;
+  border-radius: 1rem;
+}
+
+.markdown-content pre {
+  margin: 1.5rem 0;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  background: #f8fafc;
+  line-height: 1.6;
+}
+
+.dark .markdown-content pre {
+  background: #0f172a;
+}
+
+.markdown-content :not(pre) > code {
+  border-radius: 0.35rem;
+  background: #f1f5f9;
+  padding: 0.15rem 0.35rem;
+  color: #b45309;
+  font-size: 0.9em;
+}
+
+.dark .markdown-content :not(pre) > code {
+  background: #1e293b;
+  color: #fbbf24;
 }

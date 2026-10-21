@@ -7,7 +7,7 @@ defmodule JrowahWeb.ProjectsLiveTest do
     test "renders projects page", %{conn: conn} do
       {:ok, _projects_live, html} = live(conn, "/projects")
 
-      assert html =~ "These are the projects I have worked on."
+      assert html =~ "A selection of things"
     end
 
     test "has nav links that are clickable and lead to the correct pages", %{conn: conn} do
@@ -79,6 +79,13 @@ defmodule JrowahWeb.ProjectsLiveTest do
     test "renders projects", %{conn: conn} do
       {:ok, projects_live, _html} = live(conn, "/projects")
       assert has_element?(projects_live, ~s|.project-card|)
+    end
+
+    test "shows Atulabs Science first", %{conn: conn} do
+      {:ok, projects_live, _html} = live(conn, "/projects")
+
+      assert has_element?(projects_live, ".project-card:nth-child(1) h2", "Atulabs Science")
+      assert has_element?(projects_live, ~s|a[href="https://atulabs.science/"]|)
     end
   end
 end

@@ -24,6 +24,37 @@
   margin-right: 10px; /* Spacing between tech stack items */
 }
 
+.journey-card-left::after,
+.journey-card-right::after {
+  position: absolute;
+  top: 1.25rem;
+  display: none;
+  width: 0;
+  height: 0;
+  content: "";
+}
+
+.journey-card-left::after {
+  right: -0.65rem;
+  border-top: 0.55rem solid transparent;
+  border-bottom: 0.55rem solid transparent;
+  border-left: 0.65rem solid #0ea5e9;
+}
+
+.journey-card-right::after {
+  left: -0.65rem;
+  border-top: 0.55rem solid transparent;
+  border-right: 0.65rem solid #0ea5e9;
+  border-bottom: 0.55rem solid transparent;
+}
+
+@media (min-width: 768px) {
+  .journey-card-left::after,
+  .journey-card-right::after {
+    display: block;
+  }
+}
+
 @media (max-width: 768px) {
   .journey-item {
     padding: 10px; /* Adjust padding for smaller screens */

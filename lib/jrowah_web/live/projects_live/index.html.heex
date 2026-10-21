@@ -1,10 +1,14 @@
-<div class="mx-auto max-w-4xl mb-4">
-  <.page_intro title="My Projects">
-    <p>
-      These are the projects I have worked on.
+<div class="mx-auto max-w-5xl pb-16 pt-8 md:pt-12">
+  <.page_intro title="Selected projects" class="max-w-2xl">
+    <p class="text-lg text-slate-600 dark:text-slate-300">
+      A selection of things I’ve built, explored, and helped bring to life.
     </p>
   </.page_intro>
-  <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+  <div class="mb-8 mt-8 flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+    <span class="h-px w-8 bg-amber-500"></span>
+    <span>{length(@projects)} projects · Elixir, Phoenix, and beyond</span>
+  </div>
+  <div class="grid gap-5 md:grid-cols-2">
     <%= for project <- @projects do %>
       <.project_card
         description={project.description}
