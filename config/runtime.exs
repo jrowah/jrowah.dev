@@ -40,12 +40,6 @@ if config_env() == :prod do
 
   config :jrowah, JrowahWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
-    # add domain
-    check_origin: [
-      "https://jrowah.dev",
-      "https://www.jrowah.dev",
-      "http://jrowah.fly.dev"
-    ],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.

@@ -114,7 +114,7 @@ defmodule Jrowah.MixProject do
         "ci.code_quality",
         "ci.test"
       ],
-      "ci.deps_and_security": ["sobelow --config .sobelow-config"],
+      "ci.deps_and_security": ["sobelow --config"],
       "ci.code_quality": [
         "compile --force --warnings-as-errors",
         "credo --strict",

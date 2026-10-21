@@ -260,37 +260,27 @@ defmodule JrowahWeb.BlogLiveTest do
     end
 
     test "displays article metadata correctly", %{conn: conn} do
-      articles = Blog.all_articles()
+      [article | _rest] = Blog.all_articles()
+      {:ok, _show_live, html} = live(conn, "/blog/#{article.slug}")
 
-      if length(articles) > 0 do
-        article = hd(articles)
-        {:ok, _show_live, html} = live(conn, "/blog/#{article.slug}")
+      # Check for publication date
+      formatted_date = Calendar.strftime(article.date, "%d %B %Y")
+      assert html =~ formatted_date
 
-        # Check for publication date
-        formatted_date = Calendar.strftime(article.date, "%d %B %Y")
-        assert html =~ formatted_date
+      # Check for reading time
+      assert html =~ "#{article.reading_time} min read"
 
-        # Check for reading time
-        assert html =~ "#{article.reading_time} min read"
-
-        # Check for hero image if present
-        if article.hero_image do
-          assert html =~ ~s(src="#{article.hero_image}")
-        end
-      end
+      # Check for hero image
+      assert html =~ ~s(src="#{article.hero_image}")
     end
 
     test "includes share functionality", %{conn: conn} do
-      articles = Blog.all_articles()
+      [article | _rest] = Blog.all_articles()
+      {:ok, _show_live, html} = live(conn, "/blog/#{article.slug}")
 
-      if length(articles) > 0 do
-        article = hd(articles)
-        {:ok, _show_live, html} = live(conn, "/blog/#{article.slug}")
-
-        # Check for share button
-        assert html =~ "hero-share"
-        assert html =~ "Copy link"
-      end
+      # Check for share button
+      assert html =~ "hero-share"
+      assert html =~ "Copy link"
     end
   end
 end

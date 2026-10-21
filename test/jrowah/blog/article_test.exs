@@ -145,14 +145,12 @@ defmodule Jrowah.Blog.ArticleTest do
       article = Article.build(filename, attrs, body)
 
       assert is_list(article.heading_links)
-      # The specific structure depends on your heading parsing implementation
-      assert length(article.heading_links) >= 0
     end
 
     test "MDEx includes IDs and anchor links" do
       assert MDEx.to_html("## Introduction\n", extension: [header_id_prefix: ""]) ==
                {:ok,
-                "<h2><a href=\"#introduction\" aria-hidden=\"true\" class=\"anchor\" id=\"introduction\"></a>Introduction</h2>"}
+                "<h2 id=\"introduction\">Introduction<a href=\"#introduction\" aria-label=\"Link to heading 'Introduction'\" data-heading-content=\"Introduction\" class=\"anchor\"></a></h2>"}
     end
   end
 end

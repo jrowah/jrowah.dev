@@ -55,35 +55,28 @@ defmodule Jrowah.BlogTest do
 
     test "returns articles with the specified tag (case insensitive)" do
       # Get a tag from existing articles
-      all_articles = Blog.all_articles()
+      [first_article | _rest] = Blog.all_articles()
+      [tag | _other_tags] = first_article.tags
 
-      if length(all_articles) > 0 do
-        first_article = hd(all_articles)
+      # Test lowercase
+      articles =
+        tag
+        |> String.downcase()
+        |> Blog.get_articles_by_tag()
 
-        if length(first_article.tags) > 0 do
-          tag = hd(first_article.tags)
+      assert Enum.any?(articles, fn article ->
+               Enum.any?(article.tags, &(String.downcase(&1) == String.downcase(tag)))
+             end)
 
-          # Test lowercase
-          articles =
-            tag
-            |> String.downcase()
-            |> Blog.get_articles_by_tag()
+      # Test uppercase
+      other_articles =
+        tag
+        |> String.upcase()
+        |> Blog.get_articles_by_tag()
 
-          assert Enum.any?(articles, fn article ->
-                   Enum.any?(article.tags, &(String.downcase(&1) == String.downcase(tag)))
-                 end)
-
-          # Test uppercase
-          other_articles =
-            tag
-            |> String.upcase()
-            |> Blog.get_articles_by_tag()
-
-          assert Enum.any?(other_articles, fn article ->
-                   Enum.any?(article.tags, &(String.downcase(&1) == String.downcase(tag)))
-                 end)
-        end
-      end
+      assert Enum.any?(other_articles, fn article ->
+               Enum.any?(article.tags, &(String.downcase(&1) == String.downcase(tag)))
+             end)
     end
 
     test "returns empty list for non-existent tag" do
@@ -94,14 +87,10 @@ defmodule Jrowah.BlogTest do
 
   describe "get_article_by_slug/1" do
     test "returns article with matching slug" do
-      all_articles = Blog.all_articles()
+      [first_article | _rest] = Blog.all_articles()
+      found_article = Blog.get_article_by_slug(first_article.slug)
 
-      if length(all_articles) > 0 do
-        first_article = hd(all_articles)
-        found_article = Blog.get_article_by_slug(first_article.slug)
-
-        assert found_article == first_article
-      end
+      assert found_article == first_article
     end
 
     test "returns nil for non-existent slug" do
