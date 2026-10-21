@@ -85,7 +85,7 @@ defmodule Jrowah.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:nimble_publisher, "~> 1.1"},
+      {:nimble_publisher, "~> 2.1", runtime: false},
       {:makeup_elixir, ">= 0.0.0"},
       {:makeup_erlang, ">= 0.0.0"},
       {:mdex, "~> 0.2"}
