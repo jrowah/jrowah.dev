@@ -12,7 +12,24 @@ defmodule Jrowah.MixProject do
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
+      dialyzer: [plt_add_apps: [:ex_unit, :mix]],
+      listeners: [Phoenix.CodeReloader]
+    ]
+  end
+
+  # Configuration for the OTP application.
+  #
+  # Type `mix help compile.app` for more information.
+  def application do
+    [
+      mod: {Jrowah.Application, []},
+      extra_applications: [:logger, :runtime_tools]
+    ]
+  end
+
+  def cli do
+    [
+      preferred_envs: [
         ci: :test,
         "ci.deps_and_security": :test,
         "ci.deps": :test,
@@ -25,18 +42,7 @@ defmodule Jrowah.MixProject do
         credo: :test,
         dialyzer: :test,
         sobelow: :test
-      ],
-      dialyzer: [plt_add_apps: [:ex_unit, :mix]]
-    ]
-  end
-
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
-  def application do
-    [
-      mod: {Jrowah.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      ]
     ]
   end
 
